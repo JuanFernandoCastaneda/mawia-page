@@ -37,29 +37,26 @@ function invertirBotones(positivo) {
     mostrarPopup(positivo);
 }
 
-const popup = document.getElementsByClassName("popup")[0];
-const img = popup.getElementsByTagName("img")[0];
-const audio = popup.getElementsByTagName("audio")[0];
+const popupCi = document.getElementsByClassName("popup")[0];
+const popupNo = document.getElementsByClassName("popup")[1];
 const overlay = document.getElementsByClassName("overlay")[0];
-const mensaje = document.getElementsByTagName("h2")[0];
 
 let clickeadoYa = false;
 
 function mostrarPopup(positivo) {
+
     let tiempoTimeout = 1000;
     if (clickeadoYa) {
         tiempoTimeout = 0;
     }
+    let audio, popup;
+    if (!positivo) {
+        popup = popupCi;
+    } else {
+        popup = popupNo;
+    }
+    audio = popup.getElementsByTagName("audio")[0];
     setTimeout(() => {
-        if (positivo) {
-            img.src = "./images/yoshi-bailando.gif"
-            audio.src = "./audio/yoshi-bailando.mp3"
-            mensaje.textContent = "SIUUUUU >:V";
-        } else {
-            img.src = "./images/pikachu-llorando.gif"
-            audio.src = "./audio/hello-darkness.mp3"
-            mensaje.textContent = ":'V";
-        }
         audio.play();
         popup.classList.add("active")
         overlay.classList.add("active");
@@ -70,15 +67,23 @@ function mostrarPopup(positivo) {
 botonCi.onclick = () => invertirBotones(false);
 botonNo.onclick = () => invertirBotones(true);
 
-const botonPopup = popup.getElementsByTagName("button")[0];
+const botonPopupCi = popupCi.getElementsByTagName("button")[0];
+const botonPopupNo = popupNo.getElementsByTagName("button")[0];
 
-function cerrarOverlay() {
+function cerrarOverlay(positivo) {
+    if (!positivo) {
+        popup = popupCi;
+    } else {
+        popup = popupNo;
+    }
+    audio = popup.getElementsByTagName("audio")[0];
     audio.pause();
     popup.classList.remove("active")
     overlay.classList.remove("active");
 }
 
-botonPopup.onclick = () => cerrarOverlay();
+botonPopupCi.onclick = () => cerrarOverlay(false);
+botonPopupNo.onclick = () => cerrarOverlay(true);
 
 
 // 
