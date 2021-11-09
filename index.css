@@ -368,3 +368,7 @@ article * {
     opacity: 1;
     pointer-events: all;   
 }
+
+.popup, .overlay {
+  transition: 200ms ease-in-out;
+}
